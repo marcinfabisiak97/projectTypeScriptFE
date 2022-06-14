@@ -3,3 +3,21 @@ th,
 td {
   border: 1px solid black;
 }
+.mainPage {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin: 10%;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  &__el {
+    display: flex;
+    margin: 5px;
+    a {
+      margin: 0 5px;
+    }
+  }
+}
