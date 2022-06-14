@@ -1,3 +1,7 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "../state";
 const Pagination = ({
   postsPerPage,
   totalPosts,
@@ -10,15 +14,20 @@ const Pagination = ({
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
     pageNumbers.push(i);
   }
+  const dispatch = useDispatch();
+  const { show } = bindActionCreators(actionCreators, dispatch);
+  useEffect(() => {
+    show(pageNumbers.length);
+  }, [pageNumbers]);
   return (
     <nav className="pagination">
       <div className="pagination__el">
         <a onClick={() => paginate2(currentPage)} href="!#">
           previous
         </a>
-        {pageNumbers.map((el) => {
+        {pageNumbers.map((el, index) => {
           return (
-            <div>
+            <div key={index}>
               <a onClick={() => paginate(el)} href="!#">
                 {el}
               </a>

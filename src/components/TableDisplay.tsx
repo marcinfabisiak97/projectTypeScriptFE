@@ -1,19 +1,25 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Pagination from "./Pagination";
+import { useSelector } from "react-redux";
+import { RootState } from "../state/reducers";
 const TableDisplay = () => {
   const [post, setPost] = useState([]);
   const [filter, setFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(1);
+  const [postsPerPage] = useState(5);
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = post.slice(indexOfFirstPost, indexOfLastPost);
-  // Change page
+  const devtechshow = useSelector(
+    (devtechshow: RootState) => devtechshow.devtech
+  );
+
+  console.log(devtechshow, "ok");
   const paginate = (currentPage) => setCurrentPage(currentPage);
   const paginate1 = (currentPage) => {
-    if (currentPage === post.length) {
-      setCurrentPage(post.length);
+    if (currentPage === devtechshow) {
+      setCurrentPage(devtechshow);
     } else {
       setCurrentPage(currentPage + 1);
     }
@@ -52,20 +58,22 @@ const TableDisplay = () => {
         />
       </form>
       <table>
-        <tr>
-          <th>id</th>
-          <th>name</th>
-          <th>year</th>
-        </tr>
-        {currentPosts
-          .filter((el) => el.id === Number(filter) || filter === "")
-          .map((el) => (
-            <tr style={{ backgroundColor: el.color }}>
-              <td>{el.id}</td>
-              <td>{el.name}</td>
-              <td>{el.year}</td>
-            </tr>
-          ))}
+        <tbody>
+          <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>year</th>
+          </tr>
+          {currentPosts
+            .filter((el) => el.id === Number(filter) || filter === "")
+            .map((el, index) => (
+              <tr key={index} style={{ backgroundColor: el.color }}>
+                <td>{el.id}</td>
+                <td>{el.name}</td>
+                <td>{el.year}</td>
+              </tr>
+            ))}
+        </tbody>
       </table>
       <Pagination
         postsPerPage={postsPerPage}
