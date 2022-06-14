@@ -2,11 +2,8 @@ import React, { useState, useEffect, Fragment } from "react";
 import axios from "axios";
 
 const TableDisplay = () => {
-  const USER_PER_PAGE = 5;
   const [post, setPost] = useState([]);
   const [filter, setFilter] = useState("");
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
   useEffect(() => {
     axios
       .get("https://reqres.in/api/products")
