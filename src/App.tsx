@@ -1,7 +1,11 @@
 import "./styles/App.scss";
-import TableDisplay from "./components/TableDisplay";
+import Table from "./components/Table";
 function App() {
-  return <TableDisplay />;
+  return (
+    <div>
+      <Table />
+    </div>
+  );
 }
 
 export default App;

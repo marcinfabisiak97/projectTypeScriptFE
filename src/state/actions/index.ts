@@ -1,12 +1,6 @@
 import { ActionType } from "../action-types"
-
 interface ShowAction {
     type: ActionType.SHOW,
-    payload: number
+    payload: number | string
 }
-interface HideAction {
-    type: ActionType.HIDE,
-    
-}
-
-export type Action = ShowAction | HideAction;
+export type Action = ShowAction;
