@@ -103,7 +103,7 @@ const Table = () => {
               </tr>
             ))}
           {emptyRows > 0 && (
-            <tr style={{ height: 35 * emptyRows }}>
+            <tr style={{ height: 35.5 * emptyRows }}>
               <td colSpan={3} />
             </tr>
           )}

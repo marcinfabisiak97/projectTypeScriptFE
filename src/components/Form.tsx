@@ -8,7 +8,7 @@ const Form = () => {
   const { show } = bindActionCreators(actionCreators, dispatch);
   const filterVal = useSelector((filterVal: RootState) => filterVal.devtech);
   return (
-    <form>
+    <form className="form">
       <label role="filterLabel" htmlFor="filter">
         filter by id:
       </label>
