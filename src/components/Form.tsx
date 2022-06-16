@@ -6,17 +6,16 @@ import { bindActionCreators } from "redux";
 const Form = () => {
   const dispatch = useDispatch();
   const { show } = bindActionCreators(actionCreators, dispatch);
-  const devtechshow = useSelector(
-    (devtechshow: RootState) => devtechshow.devtech
-  );
+  const filterVal = useSelector((filterVal: RootState) => filterVal.devtech);
   return (
     <form>
       <label htmlFor="filter">filter by id:</label>
       <input
+        data-testid="filterBar"
         id="filter"
         name="filter"
         type="text"
-        value={devtechshow}
+        value={filterVal}
         onChange={(event) => {
           show(event.target.value.replace(/\D/g, ""));
         }}

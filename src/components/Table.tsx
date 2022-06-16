@@ -47,9 +47,7 @@ const Table = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [post, setPost] = useState<TypeSubmit[]>([]);
-  const devtechshow = useSelector(
-    (devtechshow: RootState) => devtechshow.devtech
-  );
+  const filterVal = useSelector((filterVal: RootState) => filterVal.devtech);
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - post.length) : 0;
@@ -92,7 +90,7 @@ const Table = () => {
             ? post.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : post
           )
-            .filter((el) => el.id === Number(devtechshow) || devtechshow === "")
+            .filter((el) => el.id === Number(filterVal) || filterVal === "")
             .map((row) => (
               <tr style={{ backgroundColor: row.color }} key={row.id}>
                 <td>{row.id}</td>
