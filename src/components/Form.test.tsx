@@ -1,9 +1,23 @@
-import { render } from "@testing-library/react";
+import React from "react";
+import { render, screen } from "@testing-library/react";
 import Form from "./Form";
-describe("Form Component", () => {
-  test("rendered input", () => {
-    const { getByTestId } = render(<Form />);
-    const input = getByTestId("filterBar");
-    expect(input).toBeFalsy();
-  });
+import { Provider } from "react-redux";
+import { store } from "../state/store";
+test("renders learn react link", () => {
+  render(
+    <Provider store={store}>
+      <Form />
+    </Provider>
+  );
+  const linkElement = screen.getByRole("filterLabel");
+  expect(linkElement).toHaveTextContent("filter by id:");
+});
+test("Input render", () => {
+  const { getByRole } = render(
+    <Provider store={store}>
+      <Form />
+    </Provider>
+  );
+  const input = getByRole("filterInput");
+  expect(input).toBeTruthy();
 });

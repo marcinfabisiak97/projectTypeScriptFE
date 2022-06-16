@@ -9,9 +9,11 @@ const Form = () => {
   const filterVal = useSelector((filterVal: RootState) => filterVal.devtech);
   return (
     <form>
-      <label htmlFor="filter">filter by id:</label>
+      <label role="filterLabel" htmlFor="filter">
+        filter by id:
+      </label>
       <input
-        data-testid="filterBar"
+        role="filterInput"
         id="filter"
         name="filter"
         type="text"

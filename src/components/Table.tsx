@@ -92,7 +92,11 @@ const Table = () => {
           )
             .filter((el) => el.id === Number(filterVal) || filterVal === "")
             .map((row) => (
-              <tr style={{ backgroundColor: row.color }} key={row.id}>
+              <tr
+                role="apiTest"
+                style={{ backgroundColor: row.color }}
+                key={row.id}
+              >
                 <td>{row.id}</td>
                 <td>{row.name}</td>
                 <td>{row.year}</td>
