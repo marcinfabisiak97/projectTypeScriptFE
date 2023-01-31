@@ -1,6 +1,5 @@
-export interface TypeSubmit {
-  id: number | string;
-  name: string;
-  year: number;
-  color: string;
-}
+import { InterSubmit } from "../interfaces";
+export type ModalProps = {
+  data: number | string;
+  post: InterSubmit[];
+};

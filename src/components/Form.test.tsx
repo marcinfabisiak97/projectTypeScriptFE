@@ -9,7 +9,7 @@ test("renders learn react link", () => {
       <Form />
     </Provider>
   );
-  const linkElement = screen.getByRole("filterLabel");
+  const linkElement = screen.getByRole("label");
   expect(linkElement).toHaveTextContent("filter by id:");
 });
 test("Input render", () => {
@@ -18,6 +18,6 @@ test("Input render", () => {
       <Form />
     </Provider>
   );
-  const input = getByRole("filterInput");
+  const input = getByRole("textbox");
   expect(input).toBeTruthy();
 });

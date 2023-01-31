@@ -1,9 +1,11 @@
-import { applyMiddleware, createStore } from "redux";
-import thunk from "redux-thunk"
-import reducers from "./reducers";
+import { configureStore } from "@reduxjs/toolkit";
+import modalReducer from "./slices/modalSlice";
+import dataReducer from "./slices/dataSlice";
 
-export const store = createStore(
-    reducers,
-    {},
-    applyMiddleware(thunk)
-)
+export const store = configureStore({
+  reducer: {
+    modal: modalReducer,
+    data: dataReducer,
+  },
+});
+export type RootState = ReturnType<typeof store.getState>;

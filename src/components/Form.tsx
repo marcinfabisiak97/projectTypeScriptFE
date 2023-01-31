@@ -1,25 +1,25 @@
 import React from "react";
-import { RootState } from "../state/reducers";
+import { RootState } from "../state/store";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreators } from "../state";
-import { bindActionCreators } from "redux";
+import { readValue } from "../state/slices/dataSlice";
 const Form = () => {
   const dispatch = useDispatch();
-  const { show } = bindActionCreators(actionCreators, dispatch);
-  const filterVal = useSelector((filterVal: RootState) => filterVal.devtech);
+  const filterVal = useSelector<RootState, string>(
+    (state) => state.data.filterVal
+  );
   return (
     <form className="form">
-      <label role="filterLabel" htmlFor="filter">
+      <label role="label" htmlFor="filter">
         filter by id:
       </label>
       <input
-        role="filterInput"
+        role="textbox"
         id="filter"
         name="filter"
         type="text"
         value={filterVal}
         onChange={(event) => {
-          show(event.target.value.replace(/\D/g, ""));
+          dispatch(readValue(event.target.value.replace(/\D/g, "")));
         }}
       />
     </form>
