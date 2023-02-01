@@ -1,11 +1,7 @@
 import "./styles/App.scss";
-import Table from "./components/Table";
+import FilterTable from "./components/Table";
 function App() {
-  return (
-    <div>
-      <Table />
-    </div>
-  );
+  return <FilterTable />;
 }
 
 export default App;

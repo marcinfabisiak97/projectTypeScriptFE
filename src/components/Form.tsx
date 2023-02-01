@@ -2,7 +2,7 @@ import React from "react";
 import { RootState } from "../state/store";
 import { useDispatch, useSelector } from "react-redux";
 import { readValue } from "../state/slices/dataSlice";
-const Form = () => {
+const Form: React.FC = () => {
   const dispatch = useDispatch();
   const filterVal = useSelector<RootState, string>(
     (state) => state.data.filterVal

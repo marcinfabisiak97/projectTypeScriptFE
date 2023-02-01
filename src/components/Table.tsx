@@ -4,7 +4,7 @@ import TablePaginationUnstyled, {
   tablePaginationUnstyledClasses as classes,
 } from "@mui/base/TablePaginationUnstyled";
 import { useState, useEffect } from "react";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { InterSubmit } from "../interfaces";
 import Form from "./Form";
 import Modal from "./Modal";
@@ -46,7 +46,7 @@ const CustomTablePagination = styled(TablePaginationUnstyled)`
     gap: 0.25rem;
   }
 `;
-const Table = () => {
+const FilterTable: React.FC = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [post, setPost] = useState<InterSubmit[]>([]);
@@ -76,13 +76,11 @@ const Table = () => {
 
   const getData = async (data: string | number) => {
     try {
-      const response = await axios.get("https://reqres.in/api/products", {
-        params: {
-          filter: data,
-        },
-      });
+      const response = await axios.get(
+        "https://reqres.in/api/products?filter",
+        {}
+      );
       setPost(response.data.data);
-      console.log(response);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (
@@ -152,7 +150,7 @@ const Table = () => {
         <tfoot>
           <tr>
             <CustomTablePagination
-              rowsPerPageOptions={[1, 5, { label: "All", value: -1 }]}
+              rowsPerPageOptions={[1, 5, 12, { label: "All", value: -1 }]}
               colSpan={3}
               count={post.length}
               rowsPerPage={rowsPerPage}
@@ -171,4 +169,4 @@ const Table = () => {
     </main>
   );
 };
-export default Table;
+export default FilterTable;
