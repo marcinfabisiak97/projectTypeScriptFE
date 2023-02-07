@@ -56,8 +56,7 @@ const FilterTable: React.FC = () => {
   );
   const modal = useSelector<RootState, boolean>((state) => state.modal.isOpen);
   const dispatch = useDispatch();
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - post.length) : 0;
+
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number
@@ -73,14 +72,28 @@ const FilterTable: React.FC = () => {
   const handleSendDataToModal = (id: number | string) => {
     setData(id);
   };
-
-  const getData = async (data: string | number) => {
+  const getData = async () => {
     try {
-      const response = await axios.get(
-        "https://reqres.in/api/products?filter",
-        {}
-      );
-      setPost(response.data.data);
+      if (filterVal === "") {
+        const response = await axios.get(
+          `https://reqres.in/api/products?per_page=${rowsPerPage}&page=${
+            page + 1
+          }`
+        );
+        setPost(response.data.data);
+      } else {
+        const data = [];
+        const ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+        for (const id of ids) {
+          if (Number(filterVal) === id) {
+            const response = await axios.get(
+              `https://reqres.in/api/products?id=${id}`
+            );
+            data.push(response.data.data);
+          }
+        }
+        setPost(data);
+      }
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (
@@ -103,9 +116,10 @@ const FilterTable: React.FC = () => {
       }
     }
   };
+
   useEffect(() => {
-    getData(data);
-  }, [data]);
+    getData();
+  }, [filterVal, rowsPerPage, page]);
   if (!post) return null;
 
   return (
@@ -121,38 +135,28 @@ const FilterTable: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {(rowsPerPage > 0
-            ? post.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : post
-          )
-            .filter((el) => el.id === Number(filterVal) || filterVal === "")
-            .map((row) => (
-              <tr
-                role="apiTest"
-                style={{ backgroundColor: row.color }}
-                key={row.id}
-                onClick={() => {
-                  dispatch(open());
-                  handleSendDataToModal(row.id);
-                }}
-              >
-                <td>{row.id}</td>
-                <td>{row.name}</td>
-                <td>{row.year}</td>
-              </tr>
-            ))}
-          {emptyRows > 0 && (
-            <tr style={{ height: 35.5 * emptyRows }}>
-              <td colSpan={3} />
+          {post.map((row) => (
+            <tr
+              role="apiTest"
+              style={{ backgroundColor: row.color }}
+              key={row.id}
+              onClick={() => {
+                dispatch(open());
+                handleSendDataToModal(row.id);
+              }}
+            >
+              <td>{row.id}</td>
+              <td>{row.name}</td>
+              <td>{row.year}</td>
             </tr>
-          )}
+          ))}
         </tbody>
         <tfoot>
           <tr>
             <CustomTablePagination
-              rowsPerPageOptions={[1, 5, 12, { label: "All", value: -1 }]}
+              rowsPerPageOptions={[1, 5, 12]}
               colSpan={3}
-              count={post.length}
+              count={12}
               rowsPerPage={rowsPerPage}
               page={page}
               componentsProps={{

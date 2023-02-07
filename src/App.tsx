@@ -1,5 +1,5 @@
 import "./styles/App.scss";
-import FilterTable from "./components/Table";
+import FilterTable from "./components/FilterTable";
 function App() {
   return <FilterTable />;
 }
