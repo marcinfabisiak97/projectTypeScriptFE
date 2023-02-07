@@ -1,9 +1,0 @@
-diff a/src/state/store.ts b/src/state/store.ts	(rejected hunks)
-@@ -4,6 +4,7 @@
- import modalReducer from "./slices/modalSlice";
- import dataReducer from "./slices/dataSlice";
- 
-+export const store = configureStore({
-   reducer: {
-     modal: modalReducer,
-     data: dataReducer,
